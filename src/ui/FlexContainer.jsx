@@ -23,10 +23,9 @@ const FlexContainer = styled.div`
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
   ${(props) => format[props.format]}
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
 `;
-
-FlexContainer.defaultProps = {
-  fomrat: 'center',
-};
 
 export default FlexContainer;

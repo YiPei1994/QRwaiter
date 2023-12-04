@@ -4,7 +4,12 @@ import Menu from './Menu';
 import { useMenus } from './useMenus';
 import Spinner from '../../ui/Spinner';
 import { useCustomerContext } from '../../context/CustomerContext';
-import Heading from '../../ui/Heading';
+import FlexContainer from '../../ui/FlexContainer';
+import styled from 'styled-components';
+
+const StyledMenuTable = styled.div`
+  overflow-y: scroll;
+`;
 
 function MenusTable() {
   const { menus, isLoading } = useMenus();
@@ -12,13 +17,14 @@ function MenusTable() {
   if (isLoading) return <Spinner />;
 
   return (
-    <div>
-      <Heading as="h3">{table} </Heading>
+    <StyledMenuTable>
       <MenuOperations />
-      {menus.map((menu) => (
-        <Menu key={menu.id} menu={menu} />
-      ))}
-    </div>
+      <FlexContainer>
+        {menus.map((menu) => (
+          <Menu key={menu.id} menu={menu} />
+        ))}
+      </FlexContainer>
+    </StyledMenuTable>
   );
 }
 

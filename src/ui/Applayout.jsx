@@ -12,7 +12,6 @@ const StyledApplayout = styled.div`
   grid-row-gap: 5px;
   width: 100%;
   height: 100vh;
-  padding: 2rem;
 `;
 const Header = styled.header`
   grid-area: 1 / 2 / 2 / 7;
@@ -22,7 +21,6 @@ const Header = styled.header`
 `;
 const Main = styled.main`
   grid-area: 2 / 2 / 7 / 7;
-  overflow: scroll;
 `;
 
 function Applayout() {
