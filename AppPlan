@@ -6,7 +6,7 @@
 
 - [ ] **Create/Update/Delete Order:**
   - Create a user-friendly interface for customers to add, modify, or delete their orders.
-- [ ] **Read Menus:**
+- [+] **Read Menus:**
 
   - Display the restaurant's menu with categories and items, making it easy for customers to browse.
 
@@ -18,7 +18,7 @@
 
   - Showcase any special deals, discounts, or promotions to encourage more orders.
 
-- [ ] **Order Submission:**
+- [+] **Order Submission:**
 
   - Allow customers to submit their orders to the database for processing.
 

@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
-import FlexContainer from '../../ui/FlexContainer';
+import Badge from '../../ui/Bagde';
+import Row from '../../ui/Row';
+import { useCustomerContext } from '../../context/CustomerContext';
 
 const Card = styled.div`
-  width: 300px;
+  width: 250px;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 16px;
+  height: auto;
 `;
 
 const Image = styled.img`
@@ -34,20 +37,34 @@ const Price = styled.span`
   color: #28a745;
 `;
 function Menu({ menu }) {
-  const { name, description, price, image } = menu;
+  const { id: menuId, name, description, price, image, category } = menu;
+  const { handleAddMenu, addedMenus } = useCustomerContext();
+  const currentQuantity =
+    (addedMenus &&
+      addedMenus
+        .filter((menu) => menu.id === menuId)
+        .map((menu) => menu.quantity)[0]) ||
+    0;
+
   return (
     <Card>
       <Image src={image} />
       <CardBody>
-        <Title>{name}</Title>
+        <Row type="horizontal">
+          <Title>{name}</Title> <Badge variation="orange">{category}</Badge>
+        </Row>
+
         <Description>{description}</Description>
-        <FlexContainer format="between">
+        <Row type="horizontal">
           <Price>
             {price}
             <span>kc</span>
           </Price>
-          <Button size="small">Add to Order list</Button>
-        </FlexContainer>
+
+          <Button size="small" onClick={() => handleAddMenu(menu)}>
+            Add to Order list
+          </Button>
+        </Row>
       </CardBody>
     </Card>
   );

@@ -5,8 +5,6 @@ import Tables from './pages/Tables';
 import Dashboard from './pages/dashboard';
 import Menus from './pages/menus';
 import Orders from './pages/orders';
-import Menu from './pages/Menu';
-import Order from './pages/order';
 import Favourites from './pages/Favourites';
 import { Toaster } from 'react-hot-toast';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,9 +22,9 @@ const queryClient = new QueryClient({
 });
 function App() {
   return (
-    <CustomerContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <CustomerContextProvider>
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
@@ -36,9 +34,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="favourites" element={<Favourites />} />
               <Route path="menus" element={<Menus />} />
-              <Route path="menus/:menuId" element={<Menu />} />
               <Route path="orders" element={<Orders />} />
-              <Route path="order/:orderId" element={<Order />} />
             </Route>
             <Route path="login" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
@@ -61,8 +57,8 @@ function App() {
             },
           }}
         />
-      </QueryClientProvider>
-    </CustomerContextProvider>
+      </CustomerContextProvider>
+    </QueryClientProvider>
   );
 }
 

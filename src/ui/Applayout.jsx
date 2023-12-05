@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Sidebar from './Sidebar';
 import Heading from './Heading';
+import Footer from './Footer';
 
 const StyledApplayout = styled.div`
   display: grid;
