@@ -1,9 +1,10 @@
 import { createContext, useContext, useState } from 'react';
+import { useLocalStorageState } from '../hooks/useLocalStorageState';
 
 const CustomerContext = createContext();
 
 function CustomerContextProvider({ children }) {
-  const [table, setTable] = useState('');
+  const [table, setTable] = useLocalStorageState('', 'table');
   const [addedMenus, setAddedMenus] = useState([]);
 
   function handleAddMenu(menu) {
@@ -21,27 +22,19 @@ function CustomerContextProvider({ children }) {
   }
 
   function handleAddQuantity(id) {
-    setAddedMenus((prevMenus) => {
-      const updatedMenus = prevMenus.map((menu) => {
-        if (menu.id === id) {
-          return { ...menu, quantity: menu.quantity + 1 };
-        }
-        return menu;
-      });
-      return updatedMenus;
-    });
+    const addQuantity = addedMenus.map((menu) =>
+      menu.id === id ? { ...menu, quantity: menu.quantity + 1 } : menu,
+    );
+    setAddedMenus(addQuantity);
   }
 
   function handleMinusQuantity(id) {
-    setAddedMenus((prevMenus) => {
-      const updatedMenus = prevMenus.map((menu) => {
-        if (menu.id === id) {
-          return { ...menu, quantity: menu.quantity - 1 };
-        }
-        return menu;
-      });
-      return updatedMenus;
-    });
+    const minusQuantity = addedMenus.map((menu) =>
+      menu.id === id
+        ? { ...menu, quantity: menu.quantity > 0 ? menu.quantity - 1 : 0 }
+        : menu,
+    );
+    setAddedMenus(minusQuantity);
   }
 
   function handleDelete(id) {
@@ -61,13 +54,15 @@ function CustomerContextProvider({ children }) {
       value={{
         table,
         setTable,
-        handleAddMenu,
         menusQuantity,
         menusTotalPrice,
         addedMenus,
+
         handleAddQuantity,
         handleMinusQuantity,
         handleDelete,
+        handleAddMenu,
+        setAddedMenus,
       }}
     >
       {children}

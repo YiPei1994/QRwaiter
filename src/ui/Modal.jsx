@@ -60,23 +60,21 @@ function Modal({ children }) {
 
   const close = () => setOpenName('');
   const open = setOpenName;
-
   return (
-    <ModalContext.Provider value={{ openName, close, open }}>
+    <ModalContext.Provider value={{ close, open, openName }}>
       {children}
     </ModalContext.Provider>
   );
 }
 
-function Open({ children, opens: opensWindowName }) {
+function Open({ children, opens: openWindowName }) {
   const { open } = useContext(ModalContext);
-
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return cloneElement(children, { onClick: () => open(openWindowName) });
 }
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useOutsideClick(close);
+  const { ref } = useOutsideClick(close);
 
   if (name !== openName) return null;
 
@@ -86,7 +84,6 @@ function Window({ children, name }) {
         <Button onClick={close}>
           <HiXMark />
         </Button>
-
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>
     </Overlay>,

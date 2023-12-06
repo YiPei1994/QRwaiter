@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Heading from './Heading';
 import { useCustomerContext } from '../context/CustomerContext';
 import Modal from './Modal';
-import OrderList from '../features/Order/OrderList';
+import OrderList from '../features/Ordering/OrderList';
 import Button from './Button';
 
 const StyledFooter = styled.footer`

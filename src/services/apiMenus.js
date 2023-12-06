@@ -5,7 +5,7 @@ export async function getMenus() {
 
   if (error) {
     console.error(error);
-    throw new Error('Cabins could not be loaded');
+    throw new Error('Menus could not be loaded');
   }
   return menus;
 }

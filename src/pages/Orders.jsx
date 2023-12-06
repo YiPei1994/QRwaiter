@@ -1,7 +1,8 @@
 import React from 'react';
+import OrdersTable from '../features/Order/OrdersTable';
 
 function Orders() {
-  return <div>Orders</div>;
+  return <OrdersTable />;
 }
 
 export default Orders;

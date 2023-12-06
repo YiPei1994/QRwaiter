@@ -5,7 +5,9 @@ import OrderedMenu from './OrderedMenu';
 import styled from 'styled-components';
 import Button from '../../ui/Button';
 import { useCreateOrder } from './useCreateOrder';
-import Badge from '../../ui/Bagde';
+import Modal from '../../ui/Modal';
+import ConfirmButton from '../../ui/ConfirmButton';
+import Textarea from '../../ui/Textarea';
 
 const StyledOrderList = styled.div`
   width: 120rem;
@@ -24,9 +26,18 @@ const MenusWrapper = styled.div`
 `;
 function OrderList() {
   const { createOrder, isLoading } = useCreateOrder();
-  const { table, addedMenus, menusTotalPrice } = useCustomerContext();
+  const { table, addedMenus, menusTotalPrice, setAddedMenus } =
+    useCustomerContext();
+
   function handleClick() {
-    createOrder({ tableId: table, totalPrice: menusTotalPrice });
+    createOrder(
+      {
+        tableId: table,
+        totalPrice: menusTotalPrice,
+        addedMenus: addedMenus,
+      },
+      { onSuccess: () => setAddedMenus('') },
+    );
   }
 
   return (
@@ -38,15 +49,21 @@ function OrderList() {
         ))}
       </MenusWrapper>
       <div>
-        <p>{menusTotalPrice}</p>
-        <Button
-          disabled={isLoading}
-          onClick={handleClick}
-          variation="success"
-          size="large"
-        >
-          Order
-        </Button>
+        <Modal>
+          <p>{menusTotalPrice}</p>
+          <Modal.Open opens="confirmOrder">
+            <Button disabled={isLoading} variation="success" size="large">
+              Order
+            </Button>
+          </Modal.Open>
+          <Modal.Window name="confirmOrder">
+            <ConfirmButton
+              resourceName="order"
+              onConfirm={handleClick}
+              disabled={isLoading}
+            />
+          </Modal.Window>
+        </Modal>
       </div>
     </StyledOrderList>
   );
